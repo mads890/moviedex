@@ -4,7 +4,6 @@ const morgan = require('morgan')
 const cors = require('cors')
 const helmet = require('helmet')
 const MOVIES = require('./movies.json')
-console.log(process.env.API_TOKEN)
 
 const app = express()
 
@@ -24,7 +23,7 @@ app.use(function validateKey(req, res, next) {
 
 function handleGetMovie(req, res) {
     const { genre, country, avg_vote } = req.query;
-    let moviesToReturn = MOVIES.movies
+    let moviesToReturn = MOVIES
     if(genre) {
         moviesToReturn = moviesToReturn.filter(movie => {
             movie.genre.toLowerCase().includes(genre.toLowerCase())
@@ -36,9 +35,8 @@ function handleGetMovie(req, res) {
         })
     }
     if(avg_vote) {
-        const voteNum = parseFloat(avg_vote)
         moviesToReturn = moviesToReturn.filter(movie => {
-            movie.avg_vote >= voteNum
+            movie.avg_vote >= Number(avg_vote)
         })
     }
     res.json(moviesToReturn)
