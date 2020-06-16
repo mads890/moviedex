@@ -26,17 +26,17 @@ function handleGetMovie(req, res) {
     let moviesToReturn = MOVIES
     if(genre) {
         moviesToReturn = moviesToReturn.filter(movie => {
-            movie.genre.toLowerCase().includes(genre.toLowerCase())
+            return movie.genre.toLowerCase().includes(genre.toLowerCase())
         })
     }
     if(country) {
         moviesToReturn = moviesToReturn.filter(movie => {
-            movie.country.toLowerCase().includes(country.toLowerCase())
+            return movie.country.toLowerCase().includes(country.toLowerCase())
         })
     }
     if(avg_vote) {
         moviesToReturn = moviesToReturn.filter(movie => {
-            movie.avg_vote >= Number(avg_vote)
+            return movie.avg_vote >= Number(avg_vote)
         })
     }
     res.json(moviesToReturn)
